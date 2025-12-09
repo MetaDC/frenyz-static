@@ -70,11 +70,250 @@
     <!-- fonts -->
     <link rel="stylesheet" href="web-fonts/stylesheet.css" />
     <link rel="stylesheet" href="header-fonts/stylesheet.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
+    />
+    <style>
+      .gallery-slider {
+        margin: 0 -10px;
+      }
+
+      .gallery-slide {
+        padding: 0 10px;
+      }
+
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .gallery-layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .gallery-item:hover .gallery-layer {
+        opacity: 1;
+      }
+
+      .lightbox {
+        color: #fff;
+        font-size: 24px;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .lightbox:hover {
+        background: #fff;
+        color: #333;
+        transform: scale(1.1);
+      }
+
+      /* Slick Slider Custom Arrows */
+      .slick-prev,
+      .slick-next {
+        width: 40px;
+        height: 40px;
+        background: #333;
+        border-radius: 50%;
+        z-index: 10;
+      }
+
+      .slick-prev:hover,
+      .slick-next:hover {
+        background: #555;
+      }
+
+      .slick-prev {
+        left: -50px;
+      }
+
+      .slick-next {
+        right: -50px;
+      }
+
+      .slick-prev:before,
+      .slick-next:before {
+        font-size: 20px;
+        opacity: 1;
+      }
+
+      /* Slick Dots */
+      .slick-dots {
+        bottom: -40px;
+      }
+
+      .slick-dots li button:before {
+        font-size: 12px;
+        color: #333;
+      }
+
+      .slick-dots li.slick-active button:before {
+        color: #333;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .gallery-item img {
+          height: 250px;
+        }
+
+        .slick-prev {
+          left: 10px;
+        }
+
+        .slick-next {
+          right: 10px;
+        }
+      }
+      /* MODAL */
+      /* Modal background overlay */
+
+      .modal-backdrop.show {
+        opacity: 0.7 !important;
+      }
+
+      /* Custom modal width */
+      .promo-modal-content {
+        border-radius: 12px;
+        overflow: hidden;
+        background: #ffffff; /* White box */
+      }
+
+      /* Layout fix for image + form */
+      .modal-body {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+      }
+
+      .promo-image-section img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Right side form section */
+      .promo-form-section {
+        background: #fff;
+        width: 100%;
+        max-width: 350px;
+      }
+
+      /* Close button styling */
+      .custom-close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 10;
+      }
+
+      /* Responsive Fix */
+      @media (max-width: 768px) {
+        .modal-body {
+          flex-direction: column;
+        }
+
+        .promo-image-section img {
+          height: 220px;
+          object-fit: cover;
+        }
+      }
+    </style>
   </head>
 
   <body>
     <!-- Preloader start -->
     <div id="preloader"></div>
+
+    <div
+      class="modal fade"
+      id="myModal"
+      tabindex="-1"
+      aria-labelledby="pricingModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered promo-dialog">
+        <div class="modal-content promo-modal-content">
+          <div class="modal-body position-relative p-0">
+            <button
+              type="button"
+              class="btn-close custom-close-btn"
+              data-bs-dismiss="modal"
+            ></button>
+
+            <!-- Left Image -->
+            <div class="promo-image-section">
+              <img
+                src="images/services/charmi.png"
+                class="img-fluid"
+                alt="Promo"
+              />
+            </div>
+
+            <!-- Right Content -->
+            <div class="promo-form-section p-4">
+              <h3 class="fw-bold mb-2">Ladies First,<br />Always!</h3>
+
+              <p class="mb-3">
+                Specially for Women – Flat 25% OFF on our Annual Memberships.
+              </p>
+
+              <form id="enquiryForm">
+                <div class="mb-3">
+                  <input
+                    type="tel"
+                    class="form-control"
+                    placeholder="Phone Number"
+                    required
+                  />
+                </div>
+
+                <button class="btn btn-dark w-100 py-2 fw-semibold">
+                  Claim Now
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Header Start -->
     <header class="header-area">
@@ -181,7 +420,7 @@
         </ul>
       </div>
       <div class="haircut-img">
-        <img src="images/hero/img1-min.png" alt="" class="img-fluid" />
+        <img src="images/hero/hero_image.png" alt="" class="img-fluid" />
       </div>
     </section>
 
@@ -222,102 +461,14 @@
                 />
               </div>
               <h4>Hair Services</h4>
-              <p>
-                Experienced hands, careful attention perfecting your hair needs.
-              </p>
-              <a
+              <p>Experienced hands and attention perfecting your hair.</p>
+              <!-- <a
                 class="btn btn-primary theme-btn"
                 target="_blank"
                 href="images/frenyz-salon-menu.pdf"
                 role="button"
                 >Menu <small><i class="fa-solid fa-download"></i></small
-              ></a>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-2">
-            <div
-              class="feature-col"
-              data-aos="zoom-out"
-              data-aos-offset="-300"
-              data-aos-delay="50"
-              data-aos-duration="1000"
-              data-aos-easing="ease-in-out"
-              data-aos-mirror="true"
-              data-aos-once="true"
-              data-aos-anchor-placement="top-center"
-            >
-              <div class="feature-img">
-                <img src="images/makeup.png" alt="" class="img-fluid" />
-              </div>
-              <h4>Makeup Artistry</h4>
-              <p>
-                Makeup is a means to boost self-confidence and self-expression.
-              </p>
-              <a
-                class="btn btn-primary theme-btn"
-                target="_blank"
-                href="images/frenyz-salon-menu.pdf"
-                role="button"
-                >Menu <small><i class="fa-solid fa-download"></i></small
-              ></a>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-2">
-            <div
-              class="feature-col"
-              data-aos="zoom-out"
-              data-aos-offset="-300"
-              data-aos-delay="50"
-              data-aos-duration="1000"
-              data-aos-easing="ease-in-out"
-              data-aos-mirror="true"
-              data-aos-once="true"
-              data-aos-anchor-placement="top-center"
-            >
-              <div class="feature-img">
-                <img src="images/skincare.png" alt="" class="img-fluid" />
-              </div>
-              <h4>Skin Symphony</h4>
-              <p>
-                Top products, expert care ensuring smooth, high - quality
-                services.
-              </p>
-              <a
-                class="btn btn-primary theme-btn"
-                target="_blank"
-                href="images/frenyz-salon-menu.pdf"
-                role="button"
-                >Menu <small><i class="fa-solid fa-download"></i></small
-              ></a>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-2">
-            <div
-              class="feature-col"
-              data-aos="zoom-out"
-              data-aos-offset="-300"
-              data-aos-delay="50"
-              data-aos-duration="1000"
-              data-aos-easing="ease-in-out"
-              data-aos-mirror="true"
-              data-aos-once="true"
-              data-aos-anchor-placement="top-center"
-            >
-              <div class="feature-img">
-                <img src="images/manicure.png" alt="" class="img-fluid" />
-              </div>
-              <h4>Nails & Tattoos</h4>
-              <p>
-                Indulge in the ultimate nail care experience with our expert
-                service.
-              </p>
-              <a
-                class="btn btn-primary theme-btn"
-                target="_blank"
-                href="images/frenyz-salon-menu.pdf"
-                role="button"
-                >Menu <small><i class="fa-solid fa-download"></i></small
-              ></a>
+              ></a> -->
             </div>
           </div>
           <div class="col-lg-2 col-md-2">
@@ -334,7 +485,105 @@
             >
               <div class="feature-img">
                 <img
-                  src="images/persons-in-a-class.png"
+                  src="images/services/makeup_artistry.png"
+                  alt=""
+                  class="img-fluid"
+                />
+              </div>
+              <h4>Makeup Artistry</h4>
+              <p>
+                Makeup is a means to boost self-confidence and self-expression.
+              </p>
+              <!-- <a
+                class="btn btn-primary theme-btn"
+                target="_blank"
+                href="images/frenyz-salon-menu.pdf"
+                role="button"
+                >Menu <small><i class="fa-solid fa-download"></i></small
+              ></a> -->
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2">
+            <div
+              class="feature-col"
+              data-aos="zoom-out"
+              data-aos-offset="-300"
+              data-aos-delay="50"
+              data-aos-duration="1000"
+              data-aos-easing="ease-in-out"
+              data-aos-mirror="true"
+              data-aos-once="true"
+              data-aos-anchor-placement="top-center"
+            >
+              <div class="feature-img">
+                <img
+                  src="images/services/skin_symphony.png"
+                  alt=""
+                  class="img-fluid"
+                />
+              </div>
+              <h4>Skin Symphony</h4>
+              <p>
+                Top products, expert care ensuring smooth, high - quality
+                services.
+              </p>
+              <!-- <a
+                class="btn btn-primary theme-btn"
+                target="_blank"
+                href="images/frenyz-salon-menu.pdf"
+                role="button"
+                >Menu <small><i class="fa-solid fa-download"></i></small
+              ></a> -->
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2">
+            <div
+              class="feature-col"
+              data-aos="zoom-out"
+              data-aos-offset="-300"
+              data-aos-delay="50"
+              data-aos-duration="1000"
+              data-aos-easing="ease-in-out"
+              data-aos-mirror="true"
+              data-aos-once="true"
+              data-aos-anchor-placement="top-center"
+            >
+              <div class="feature-img">
+                <img
+                  src="images/services/nails_tattoos.png"
+                  alt=""
+                  class="img-fluid"
+                />
+              </div>
+              <h4>Nails & Tattoos</h4>
+              <p>
+                Indulge in the ultimate nail care experience with our expert
+                service.
+              </p>
+              <!-- <a
+                class="btn btn-primary theme-btn"
+                target="_blank"
+                href="images/frenyz-salon-menu.pdf"
+                role="button"
+                >Menu <small><i class="fa-solid fa-download"></i></small
+              ></a> -->
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2">
+            <div
+              class="feature-col"
+              data-aos="zoom-out"
+              data-aos-offset="-300"
+              data-aos-delay="50"
+              data-aos-duration="1000"
+              data-aos-easing="ease-in-out"
+              data-aos-mirror="true"
+              data-aos-once="true"
+              data-aos-anchor-placement="top-center"
+            >
+              <div class="feature-img">
+                <img
+                  src="images/services/academy.png"
                   alt=""
                   class="img-fluid"
                 />
@@ -344,9 +593,9 @@
                 Elevate your passion, refine your skills, join us in the pursuit
                 of beauty.
               </p>
-              <a class="btn btn-primary theme-btn" href="#academy" role="button"
+              <!-- <a class="btn btn-primary theme-btn" href="#academy" role="button"
                 >Details</a
-              >
+              > -->
             </div>
           </div>
           <small style="font-size: 10px" class="text-center"
@@ -433,6 +682,109 @@
       </div>
     </section>
 
+    <!--GAllery Section-->
+    <section class="gallery-area" id="gallery">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="title-col text-center">
+              <span>Gallery</span>
+              <h2>Gallery</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Voluptas voluptatum dignissimos nobis asperiores eius.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-slider">
+          <div class="gallery-slide">
+            <div class="gallery-item">
+              <img
+                src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&h=400&fit=crop"
+                alt="Haircut 1"
+              />
+              <!-- <div class="gallery-layer">
+                <a class="lightbox" href="#" title="Normal Haircut">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </a>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="gallery-slide">
+            <div class="gallery-item">
+              <img
+                src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600&h=400&fit=crop"
+                alt="Haircut 2"
+              />
+              <!-- <div class="gallery-layer">
+                <a class="lightbox" href="#" title="Hair Styling">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </a>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="gallery-slide">
+            <div class="gallery-item">
+              <img
+                src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&h=400&fit=crop"
+                alt="Haircut 3"
+              />
+              <!-- <div class="gallery-layer">
+                <a class="lightbox" href="#" title="Hair Clean">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </a>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="gallery-slide">
+            <div class="gallery-item">
+              <img
+                src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&h=400&fit=crop"
+                alt="Haircut 4"
+              />
+              <!-- <div class="gallery-layer">
+                <a class="lightbox" href="#" title="Modern Cut">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </a>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="gallery-slide">
+            <div class="gallery-item">
+              <img
+                src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=600&h=400&fit=crop"
+                alt="Haircut 5"
+              />
+              <!-- <div class="gallery-layer">
+                <a class="lightbox" href="#" title="Beard Trim">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </a>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="gallery-slide">
+            <div class="gallery-item">
+              <img
+                src="https://images.unsplash.com/photo-1620331311520-246422fd82f9?w=600&h=400&fit=crop"
+                alt="Haircut 6"
+              />
+              <!-- <div class="gallery-layer">
+                <a class="lightbox" href="#" title="Classic Style">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Team Start -->
     <section class="team-area" id="team">
       <div class="container">
@@ -453,7 +805,11 @@
           <div class="col-lg-4 col-md-6">
             <div class="team-col">
               <div class="team-img">
-                <img src="images/dhiraj-frenyz.jpeg" alt="" class="img-fluid" />
+                <img
+                  src="images/teams/dhiraj-photo.png"
+                  alt=""
+                  class="img-fluid"
+                />
                 <ul>
                   <!-- <li><a href="#."><i class="fa-brands fa-facebook-f"></i></a></li> -->
                   <li>
@@ -480,7 +836,11 @@
           <div class="col-lg-4 col-md-6">
             <div class="team-col">
               <div class="team-img">
-                <img src="images/freny.jpeg" alt="" class="img-fluid" />
+                <img
+                  src="images/teams/freny-photo.png"
+                  alt=""
+                  class="img-fluid"
+                />
                 <ul>
                   <!-- <li><a href="#."><i class="fa-brands fa-facebook-f"></i></a></li> -->
                   <li>
@@ -540,17 +900,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6">
-            <div
-              class="about-two-col about-two-img"
-              data-aos="fade-up"
-              data-aos-offset="-300"
-              data-aos-delay="50"
-              data-aos-duration="1000"
-              data-aos-easing="ease-in-out"
-              data-aos-mirror="true"
-              data-aos-once="true"
-              data-aos-anchor-placement="top-center"
-            >
+            <div class="about-two-col about-two-img">
               <img
                 src="images/academy.png"
                 alt=""
@@ -562,17 +912,7 @@
             </div>
           </div>
           <div class="col-lg-6">
-            <div
-              class="about-two-col"
-              data-aos="fade-up"
-              data-aos-offset="-300"
-              data-aos-delay="50"
-              data-aos-duration="1000"
-              data-aos-easing="ease-in-out"
-              data-aos-mirror="true"
-              data-aos-once="true"
-              data-aos-anchor-placement="top-center"
-            >
+            <div class="about-two-col">
               <div class="title-col">
                 <span>Academy</span>
                 <h2>Academy</h2>
@@ -611,7 +951,6 @@
       </div>
     </section>
 
-    <!-- gallery Start -->
     <section class="gallery-area pb-0" id="connect">
       <div class="container">
         <div class="row justify-content-center">
@@ -662,7 +1001,7 @@
                           <p>frenyzsalon@gmail.com</p>
                         </div>
                       </div>
-                      <div class="text-center mt-5">
+                      <!-- <div class="text-center mt-5">
                         <a
                           href="tel:+91 87994 61114"
                           class="btn btn-primary theme-btn pt-2 pb-2"
@@ -673,6 +1012,22 @@
                           class="btn btn-primary theme-btn pt-2 pb-2"
                         >
                           <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                      </div> -->
+                      <div class="text-center mt-5">
+                        <a
+                          href="tel:+91 8560024060"
+                          class="btn btn-primary theme-btn pt-2 pb-2"
+                          ><i class="fa-solid fa-phone"> </i
+                        ></a>
+                        <a
+                          href="https://wa.me/918799461114"
+                          class="btn btn-primary theme-btn pt-2 pb-2"
+                          target="_blank"
+                          role="button"
+                        >
+                          <i class="fa-brands fa-whatsapp"></i>
+                          Chat with Us
                         </a>
                       </div>
                       <!-- <div class="form-col">
@@ -867,7 +1222,7 @@
 
     <!-- insta widget -->
     <section class="gallery-area" id="gallery">
-      <div class="container-fluid">
+      <!-- <div class="container-fluid">
         <div class="row justify-content-center">
           <div class="col-lg-8">
             <div class="title-col text-center">
@@ -914,7 +1269,7 @@
             })(document, "script", "EmbedSocialHashtagScript");
           </script>
         </div>
-      </div>
+      </div> -->
     </section>
 
     <!-- Footer Start -->
@@ -930,8 +1285,12 @@
                   href="https://wa.me/918560024060"
                   target="_blank"
                   role="button"
-                  >Chat With Us &nbsp; <i class="fa-brands fa-whatsapp"></i
-                ></a>
+                  ><i
+                    class="fa-brands fa-whatsapp"
+                    style="padding-right: 8px"
+                  ></i
+                  >Chat With Us &nbsp;
+                </a>
               </div>
             </div>
           </div>
@@ -1119,5 +1478,47 @@
 
     <!-- Custom Js -->
     <script src="js/main.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+          var myModal = new bootstrap.Modal(document.getElementById("myModal"));
+          myModal.show();
+        }, 1000); // 5000ms = 5 seconds
+      });
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        $(".gallery-slider").slick({
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          autoplay: true,
+          autoplaySpeed: 3000,
+          arrows: true,
+          dots: true,
+          infinite: true,
+          pauseOnHover: true,
+          responsive: [
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+              },
+            },
+            {
+              breakpoint: 768,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+              },
+            },
+          ],
+        });
+      });
+    </script>
   </body>
 </html>
