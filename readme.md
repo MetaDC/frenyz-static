@@ -1,0 +1,2 @@
+# frenyz-web
+# frenyz-static
