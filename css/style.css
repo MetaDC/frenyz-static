@@ -728,8 +728,11 @@ input:-moz-placeholder {
 }
 .about-img {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.about-img:before {
+/* .about-img:before {
   content: "";
   position: absolute;
   right: 50px;
@@ -738,7 +741,7 @@ input:-moz-placeholder {
   width: 88%;
   height: 100%;
   border: 2px dashed #dddddd;
-}
+} */
 .myvideo {
   position: absolute;
   right: 80px;
